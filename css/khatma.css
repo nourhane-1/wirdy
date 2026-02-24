@@ -1,0 +1,159 @@
+
+body {
+  background: #fdfdfb;
+  font-family: 'Cairo', sans-serif;
+}
+
+
+.title-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.khatma-badge {
+  display: inline-block;
+  background: #9b7b5c; 
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
+
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: fixed;  
+  top: 70px;        
+  left: 50%;       
+  transform: translateX(-50%);
+  z-index:1;
+
+}
+
+
+.badge-complete {
+  display: none;
+  background: #4caf50;
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  animation: fadeIn 0.5s ease;
+    position: fixed;   
+  top: 70px;        
+  left: 50%;        
+  transform: translateX(-50%); 
+  z-index: 1;
+}
+
+.title-box h2 {
+  margin: 0;
+  color: #9b7b5c;
+}
+
+
+.part-btn {
+  background: #cfe0e6;
+  padding: 15px 45px 15px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+
+.part-text {
+  flex: 1;
+  text-align: center;
+}
+
+
+.part-check {
+  display: none;
+}
+
+
+.checkmark {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  transition: 0.3s;
+}
+
+
+.checkmark::after {
+  content: "✔";
+  color: #4caf50;
+  font-size: 16px;
+  display: none;
+}
+
+
+.part-check:checked + .checkmark {
+  border-color: #4caf50;
+  background: #e8f5e9;
+}
+
+.part-check:checked + .checkmark::after {
+  display: block;
+}
+
+
+.part-btn:hover {
+  background: #b9d3dc;
+  transform: translateY(-3px);
+}
+
+
+.new-khatma {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.new-khatma button {
+  background: #9b7b5c;
+  color: #fff;
+  padding: 15px 60px;
+  border-radius: 40px;
+  font-size: 20px;
+  border: none;
+  transition: 0.3s;
+  cursor: pointer;
+  opacity: 0.5; 
+}
+
+.new-khatma button.active {
+  opacity: 1; 
+}
+
+.new-khatma button:hover {
+  background: #86664a;
+  transform: translateY(-3px);
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.khatma-animate {
+  animation: fadeIn 0.6s ease;
+}

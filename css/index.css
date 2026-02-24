@@ -1,0 +1,68 @@
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f7f5;
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-brand {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #2f4f4f;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #2e8b57;
+}
+
+/* زر الموبايل */
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* 📱 موبايل */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #f5f7f5;
+    flex-direction: column;
+    width: 100%;
+    display: none;
+    padding: 10px 0;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links li {
+    text-align: center;
+    padding: 10px 0;
+  }
+}
