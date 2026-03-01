@@ -48,6 +48,17 @@ body {
   right: 0;
   padding: 20px 15px;
   box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+  z-index: 9999; /* ensure sidebar stays above all page content */
+}
+
+/* make sure content doesn't accidentally overlap */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-toggle {
+  z-index: 10000 !important; /* always above sidebar */
 }
 
 .logo {
