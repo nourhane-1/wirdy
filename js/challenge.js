@@ -5,6 +5,12 @@ const challengeList = document.getElementById("challengeList");
 const today = new Date().toLocaleDateString("ar-EG");
 
 
+// the list that will actually be saved in localStorage. we initialize
+// it with defaults if nothing was stored before. later we treat every
+// challenge the same way, whether it was "built‑in" or user added.
+// starting list shown the first time the user opens the page. once a
+// value is saved under the "allChallenges" key we always read from that
+// instead, so the array below is just a fallback.
 const defaultChallenges = [
      { text: "الصلوات الخمس ", done: false },
   { text: "قراءة قرآن", done: false },
@@ -14,21 +20,25 @@ const defaultChallenges = [
     { text: "قيام الليل ", done: false },
 ];
 
-let userChallenges = JSON.parse(localStorage.getItem("userChallenges")) || [];
-
+// load the full array of items from storage or fall back to the defaults
+// note: this array contains both the default items and any tasks the
+// user has added. keeping a single list makes it easy to persist the
+// "done" state for every task.
+let allChallenges = JSON.parse(localStorage.getItem("allChallenges")) || defaultChallenges.slice();
 
 let lastDate = localStorage.getItem("lastDate");
 
-
 if (lastDate !== today) {
-  userChallenges = userChallenges.map(ch => ({ ...ch, done: false }));
+  // reset the done flag for every challenge, but keep the text
+  allChallenges = allChallenges.map(ch => ({ ...ch, done: false }));
   localStorage.setItem("lastDate", today);
-  localStorage.setItem("userChallenges", JSON.stringify(userChallenges));
+  localStorage.setItem("allChallenges", JSON.stringify(allChallenges));
 }
 
-
+// helper to return the array we keep in memory; the old getAllChallenges
+// is now just a thin wrapper around the single list.
 function getAllChallenges() {
-  return [...defaultChallenges, ...userChallenges];
+  return allChallenges;
 }
 
 
@@ -44,12 +54,9 @@ function renderChallenges() {
     checkbox.checked = challenge.done;
 
     checkbox.addEventListener("change", () => {
-      if (index >= defaultChallenges.length) {
-        userChallenges[index - defaultChallenges.length].done = checkbox.checked;
-        saveUserChallenges();
-      } else {
-        defaultChallenges[index].done = checkbox.checked;
-      }
+      // update the in-memory array and persist immediately
+      allChallenges[index].done = checkbox.checked;
+      saveAllChallenges();
       renderChallenges();
     });
 
@@ -63,18 +70,25 @@ function renderChallenges() {
 }
 
 
-function saveUserChallenges() {
-  localStorage.setItem("userChallenges", JSON.stringify(userChallenges));
+function saveAllChallenges() {
+  localStorage.setItem("allChallenges", JSON.stringify(allChallenges));
 }
 
 addBtn.addEventListener("click", () => {
   const text = challengeInput.value.trim();
   if (!text) return;
 
-  userChallenges.push({ text, done: false });
+  allChallenges.push({ text, done: false });
   challengeInput.value = "";
-  saveUserChallenges();
+  saveAllChallenges();
   renderChallenges();
+});
+
+// let the user hit Enter instead of clicking the button
+challengeInput.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    addBtn.click();
+  }
 });
 
 
