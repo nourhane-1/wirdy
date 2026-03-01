@@ -1,6 +1,9 @@
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
+// sidebar toggle logic (used on all pages now)
+const sidebar = document.getElementById("sidebar");
+const toggleBtn = document.getElementById("sidebarToggle");
 
-menuToggle.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
-});
+if (sidebar && toggleBtn) {
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("show");
+  });
+}    
